@@ -16,7 +16,7 @@ class SecondaryBottomControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     final fontSize = responsive.ip(2);
     final textStyle = TextStyle(
       color: Colors.white,
@@ -52,13 +52,13 @@ class SecondaryBottomControls extends StatelessWidget {
                     //observables: [_.duration, _.position],
                     (__) {
                       String text = "";
-                      if (_.duration.value.inMinutes >= 60) {
+                      if (c.duration.value.inMinutes >= 60) {
                         // if the duration is >= 1 hour
                         text =
-                            "${printDurationWithHours(_.position.value)} / ${printDurationWithHours(_.duration.value)}";
+                            "${printDurationWithHours(c.position.value)} / ${printDurationWithHours(c.duration.value)}";
                       } else {
                         text =
-                            "${printDuration(_.position.value)} / ${printDuration(_.duration.value)}";
+                            "${printDuration(c.position.value)} / ${printDuration(c.duration.value)}";
                       }
                       return Padding(
                         padding: const EdgeInsets.only(right: 5),
@@ -88,16 +88,16 @@ class SecondaryBottomControls extends StatelessWidget {
               ),
               Row(
                 children: [
-                  if (_.bottomRight != null) ...[
-                    _.bottomRight!,
+                  if (c.bottomRight != null) ...[
+                    c.bottomRight!,
                     const SizedBox(width: 10)
                   ],
                   //if (_.enabledButtons.pip) PipButton(responsive: responsive),
-                  if (_.enabledButtons.videoFit)
+                  if (c.enabledButtons.videoFit)
                     VideoFitButton(responsive: responsive),
-                  if (_.enabledButtons.muteAndSound)
+                  if (c.enabledButtons.muteAndSound)
                     MuteSoundButton(responsive: responsive),
-                  if (_.enabledButtons.fullscreen) ...[
+                  if (c.enabledButtons.fullscreen) ...[
                     FullscreenButton(
                       size: buttonsSize,
                     ),

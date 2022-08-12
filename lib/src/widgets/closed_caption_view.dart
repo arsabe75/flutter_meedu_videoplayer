@@ -10,21 +10,21 @@ class ClosedCaptionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     return RxBuilder(
         //observables: [_.closedCaptionEnabled],
         (__) {
-      if (!_.closedCaptionEnabled.value) return Container();
+      if (!c.closedCaptionEnabled.value) return Container();
 
       return StreamBuilder<Duration>(
         initialData: Duration.zero,
-        stream: _.onPositionChanged,
+        stream: c.onPositionChanged,
         builder: (__, snapshot) {
           if (snapshot.hasError) {
             return Container();
           }
 
-          final strSubtitle = _.videoPlayerController!.value.caption.text;
+          final strSubtitle = c.videoPlayerController!.value.caption.text;
 
           return Positioned(
             left: 60,

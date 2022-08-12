@@ -16,7 +16,7 @@ class PrimaryBottomControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     final fontSize = responsive.ip(2.5);
     final textStyle = TextStyle(
       color: Colors.white,
@@ -34,9 +34,9 @@ class PrimaryBottomControls extends StatelessWidget {
               //observables: [_.duration, _.position],
               (__) {
             return Text(
-              _.duration.value.inMinutes >= 60
-                  ? printDurationWithHours(_.position.value)
-                  : printDuration(_.position.value),
+              c.duration.value.inMinutes >= 60
+                  ? printDurationWithHours(c.position.value)
+                  : printDuration(c.position.value),
               style: textStyle,
             );
           }),
@@ -50,30 +50,30 @@ class PrimaryBottomControls extends StatelessWidget {
           RxBuilder(
             //observables: [_.duration],
             (__) => Text(
-              _.duration.value.inMinutes >= 60
-                  ? printDurationWithHours(_.duration.value)
-                  : printDuration(_.duration.value),
+              c.duration.value.inMinutes >= 60
+                  ? printDurationWithHours(c.duration.value)
+                  : printDuration(c.duration.value),
               style: textStyle,
             ),
           ),
           // END VIDEO DURATION
           const SizedBox(width: 15),
-          if (_.bottomRight != null) ...[
-            _.bottomRight!,
+          if (c.bottomRight != null) ...[
+            c.bottomRight!,
             const SizedBox(width: 5)
           ],
 
           //if (_.enabledButtons.pip) PipButton(responsive: responsive),
 
-          if (_.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
-          if (_.enabledButtons.playBackSpeed)
+          if (c.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
+          if (c.enabledButtons.playBackSpeed)
             PlayBackSpeedButton(responsive: responsive, textStyle: textStyle),
-          if (_.enabledButtons.muteAndSound)
+          if (c.enabledButtons.muteAndSound)
             MuteSoundButton(responsive: responsive),
 
-          if (_.enabledButtons.fullscreen)
+          if (c.enabledButtons.fullscreen)
             FullscreenButton(
-              size: responsive.ip(_.fullscreen.value ? 5 : 7),
+              size: responsive.ip(c.fullscreen.value ? 5 : 7),
             )
         ],
       ),

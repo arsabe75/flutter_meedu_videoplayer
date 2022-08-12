@@ -16,7 +16,7 @@ class MeeduPlayerFullscreenPage extends StatefulWidget {
 class MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       body: RxBuilder(
@@ -28,8 +28,8 @@ class MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
             child: FittedBox(
               fit: widget.controller.videoFit.value,
               child: SizedBox(
-                width: _size.width,
-                height: _size.height,
+                width: size.width,
+                height: size.height,
                 child: MeeduVideoPlayer(
                   controller: widget.controller,
                 ),

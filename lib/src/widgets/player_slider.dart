@@ -8,7 +8,7 @@ class PlayerSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
@@ -19,7 +19,7 @@ class PlayerSlider extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 color: Colors.white30,
-                width: constraints.maxWidth * _.bufferedPercent.value,
+                width: constraints.maxWidth * c.bufferedPercent.value,
                 height: 3,
               );
             },
@@ -28,8 +28,8 @@ class PlayerSlider extends StatelessWidget {
         RxBuilder(
           //observables: [_.sliderPosition, _.duration],
           (__) {
-            final int value = _.sliderPosition.value.inSeconds;
-            final double max = _.duration.value.inSeconds.toDouble();
+            final int value = c.sliderPosition.value.inSeconds;
+            final double max = c.duration.value.inSeconds.toDouble();
             if (value > max || max <= 0) {
               return Container();
             }
@@ -42,28 +42,28 @@ class PlayerSlider extends StatelessWidget {
               child: SliderTheme(
                 data: SliderThemeData(
                   trackShape: MSliderTrackShape(),
-                  thumbColor: _.colorTheme,
-                  activeTrackColor: _.colorTheme,
+                  thumbColor: c.colorTheme,
+                  activeTrackColor: c.colorTheme,
                   trackHeight: 10,
                   thumbShape:
                       const RoundSliderThumbShape(enabledThumbRadius: 4.0),
                 ),
                 child: Slider(
                   min: 0,
-                  divisions: _.duration.value.inSeconds,
+                  divisions: c.duration.value.inSeconds,
                   value: value.toDouble(),
                   onChangeStart: (v) {
-                    _.onChangedSliderStart();
+                    c.onChangedSliderStart();
                   },
                   onChangeEnd: (v) {
-                    _.onChangedSliderEnd();
-                    _.seekTo(
+                    c.onChangedSliderEnd();
+                    c.seekTo(
                       Duration(seconds: v.floor()),
                     );
                   },
-                  label: printDuration(_.sliderPosition.value),
+                  label: printDuration(c.sliderPosition.value),
                   max: max,
-                  onChanged: _.onChangedSlider,
+                  onChanged: c.onChangedSlider,
                 ),
               ),
             );

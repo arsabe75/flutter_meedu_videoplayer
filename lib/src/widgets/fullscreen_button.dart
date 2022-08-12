@@ -10,16 +10,16 @@ class FullscreenButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     return RxBuilder(
       //observables: [_.fullscreen],
       (__) {
         String iconPath = 'assets/icons/minimize.png';
-        Widget? customIcon = _.customIcons.minimize;
+        Widget? customIcon = c.customIcons.minimize;
 
-        if (!_.fullscreen.value) {
+        if (!c.fullscreen.value) {
           iconPath = 'assets/icons/fullscreen.png';
-          customIcon = _.customIcons.fullscreen;
+          customIcon = c.customIcons.fullscreen;
         }
         return PlayerButton(
           size: size,
@@ -29,18 +29,18 @@ class FullscreenButton extends StatelessWidget {
           iconPath: iconPath,
           customIcon: customIcon,
           onPressed: () {
-            if (_.fullscreen.value) {
+            if (c.fullscreen.value) {
               // exit to fullscreen
-              if (_.windows) {
-                _.screenManager.setWindowsFullScreen(false, _);
+              if (c.windows) {
+                c.screenManager.setWindowsFullScreen(false, c);
               } else {
                 Navigator.pop(context);
               }
             } else {
-              if (_.windows) {
-                _.screenManager.setWindowsFullScreen(true, _);
+              if (c.windows) {
+                c.screenManager.setWindowsFullScreen(true, c);
               } else {
-                _.goToFullscreen(context);
+                c.goToFullscreen(context);
               }
             }
           },

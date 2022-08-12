@@ -595,8 +595,8 @@ class ControlsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
 
-    return Positioned.fill(child: controlsUI(_, context));
+    return Positioned.fill(child: controlsUI(c, context));
   }
 }

@@ -13,21 +13,21 @@ class PlayBackSpeedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     return RxBuilder(
         //observables: [_.fullscreen],
         (__) {
       return TextButton(
         style: TextButton.styleFrom(
           padding:
-              EdgeInsets.all(responsive.ip(_.fullscreen.value ? 5 : 7) * 0.25),
+              EdgeInsets.all(responsive.ip(c.fullscreen.value ? 5 : 7) * 0.25),
         ),
         onPressed: () {
           debugPrint("s");
-          _.togglePlaybackSpeed();
+          c.togglePlaybackSpeed();
         },
         child: Text(
-          _.playbackSpeed.toString(),
+          c.playbackSpeed.toString(),
           style: textStyle,
         ),
       );

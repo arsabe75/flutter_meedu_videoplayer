@@ -11,7 +11,7 @@ class PlayPauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
     return RxBuilder(
       //observables: [
       //  _.playerStatus.status,
@@ -20,29 +20,29 @@ class PlayPauseButton extends StatelessWidget {
       //  _.position
       //],
       (__) {
-        if (_.isBuffering.value) {
-          return CupertinoButton(onPressed: _.pause, child: _.loadingWidget!);
+        if (c.isBuffering.value) {
+          return CupertinoButton(onPressed: c.pause, child: c.loadingWidget!);
         }
 
         String iconPath = 'assets/icons/repeat.png';
-        Widget? customIcon = _.customIcons.repeat;
-        if (_.playerStatus.playing) {
+        Widget? customIcon = c.customIcons.repeat;
+        if (c.playerStatus.playing) {
           iconPath = 'assets/icons/pause.png';
-          customIcon = _.customIcons.pause;
-        } else if (_.playerStatus.paused) {
+          customIcon = c.customIcons.pause;
+        } else if (c.playerStatus.paused) {
           iconPath = 'assets/icons/play.png';
-          customIcon = _.customIcons.play;
+          customIcon = c.customIcons.play;
         }
         return PlayerButton(
           backgrounColor: Colors.transparent,
           iconColor: Colors.white,
           onPressed: () {
-            if (_.playerStatus.playing) {
-              _.pause();
-            } else if (_.playerStatus.paused) {
-              _.play();
+            if (c.playerStatus.playing) {
+              c.pause();
+            } else if (c.playerStatus.paused) {
+              c.play();
             } else {
-              _.play(repeat: true);
+              c.play(repeat: true);
             }
           },
           size: size,

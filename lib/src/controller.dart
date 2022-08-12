@@ -600,7 +600,7 @@ class MeeduPlayerController {
     }
 
     // if the playbackSpeed is not the default value
-    if (_playbackSpeed != 1.0) {
+    if (_playbackSpeed != 1.0.obs) {
       await setPlaybackSpeed(_playbackSpeed.value);
     }
 

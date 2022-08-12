@@ -49,34 +49,34 @@ class MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
           height: 0.0,
           child: LayoutBuilder(
             builder: (ctx, constraints) {
-              MeeduPlayerController _ = widget.controller;
+              MeeduPlayerController c = widget.controller;
               final responsive = Responsive(
                 constraints.maxWidth,
                 constraints.maxHeight,
               );
 
               if (widget.customIcons != null) {
-                _.customIcons = widget.customIcons!(responsive);
+                c.customIcons = widget.customIcons!(responsive);
               }
 
               if (widget.header != null) {
-                _.header = widget.header!(context, _, responsive);
+                c.header = widget.header!(context, c, responsive);
               }
 
               if (widget.bottomRight != null) {
-                _.bottomRight = widget.bottomRight!(context, _, responsive);
+                c.bottomRight = widget.bottomRight!(context, c, responsive);
               }
 
               return Stack(
                 alignment: Alignment.center,
                 children: [
-                  if (_.windows)
+                  if (c.windows)
                     RxBuilder(
                         //observables: [_.videoFit],
                         (__) {
                       //print("NATIVE HAS BEEN REBUILT ${_.videoPlayerControllerWindows}");
-                      _.dataStatus.status.value;
-                      if (_.videoPlayerControllerWindows == null) {
+                      c.dataStatus.status.value;
+                      if (c.videoPlayerControllerWindows == null) {
                         return const Text("Loading");
                       }
 
@@ -95,7 +95,7 @@ class MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                                 ),
                            */
                           Video(
-                            player: _.videoPlayerControllerWindows!,
+                            player: c.videoPlayerControllerWindows!,
                             showControls: false,
                           ),
                         ],
@@ -105,31 +105,31 @@ class MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                     RxBuilder(
                         //observables: [_.videoFit],
                         (__) {
-                      _.dataStatus.status.value;
+                      c.dataStatus.status.value;
                       debugPrint("Fit is ${widget.controller.videoFit.value}");
                       return SizedBox.expand(
                         child: FittedBox(
                           fit: widget.controller.videoFit.value,
                           child: SizedBox(
-                            width: _.videoPlayerController != null
-                                ? _.videoPlayerController!.value.size.width
+                            width: c.videoPlayerController != null
+                                ? c.videoPlayerController!.value.size.width
                                 : 640,
-                            height: _.videoPlayerController != null
-                                ? _.videoPlayerController!.value.size.height
+                            height: c.videoPlayerController != null
+                                ? c.videoPlayerController!.value.size.height
                                 : 480,
-                            child: VideoPlayer(_.videoPlayerController!),
+                            child: VideoPlayer(c.videoPlayerController!),
                           ),
                         ),
                       );
                     }),
                   ClosedCaptionView(responsive: responsive),
-                  if (_.controlsEnabled &&
-                      _.controlsStyle == ControlsStyle.primary)
+                  if (c.controlsEnabled &&
+                      c.controlsStyle == ControlsStyle.primary)
                     PrimaryVideoPlayerControls(
                       responsive: responsive,
                     ),
-                  if (_.controlsEnabled &&
-                      _.controlsStyle == ControlsStyle.secondary)
+                  if (c.controlsEnabled &&
+                      c.controlsStyle == ControlsStyle.secondary)
                     SecondaryVideoPlayerControls(
                       responsive: responsive,
                     ),

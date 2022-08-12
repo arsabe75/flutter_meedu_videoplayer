@@ -14,21 +14,21 @@ class PrimaryVideoPlayerControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final c = MeeduPlayerController.of(context);
 
     return ControlsContainer(
       child: Stack(
         alignment: Alignment.center,
         children: [
           // RENDER A CUSTOM HEADER
-          if (_.header != null)
+          if (c.header != null)
             Positioned(
               left: 0,
               right: 0,
               top: 0,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: _.header!,
+                child: c.header!,
               ),
             ),
           SizedBox(
@@ -39,43 +39,43 @@ class PrimaryVideoPlayerControls extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (_.enabledButtons.rewindAndfastForward) ...[
+              if (c.enabledButtons.rewindAndfastForward) ...[
                 PlayerButton(
-                  onPressed: _.rewind,
-                  size: responsive.ip(_.fullscreen.value ? 8 : 12),
+                  onPressed: c.rewind,
+                  size: responsive.ip(c.fullscreen.value ? 8 : 12),
                   iconColor: Colors.white,
                   backgrounColor: Colors.transparent,
                   iconPath: 'assets/icons/rewind.png',
-                  customIcon: _.customIcons.rewind,
+                  customIcon: c.customIcons.rewind,
                 ),
                 const SizedBox(width: 10),
               ],
-              if (_.enabledButtons.playPauseAndRepeat)
+              if (c.enabledButtons.playPauseAndRepeat)
                 RxBuilder(
                     //observables: [_.showSwipeDuration],
                     //observables: [_.swipeDuration],
                     (__) {
-                  _.dataStatus.status.value;
-                  if (!_.showSwipeDuration.value &&
-                      !_.dataStatus.error &&
-                      !_.dataStatus.loading &&
-                      !_.isBuffering.value) {
+                  c.dataStatus.status.value;
+                  if (!c.showSwipeDuration.value &&
+                      !c.dataStatus.error &&
+                      !c.dataStatus.loading &&
+                      !c.isBuffering.value) {
                     return PlayPauseButton(
-                      size: responsive.ip(_.fullscreen.value ? 8 : 13),
+                      size: responsive.ip(c.fullscreen.value ? 8 : 13),
                     );
                   } else {
                     return Container();
                   }
                 }),
-              if (_.enabledButtons.rewindAndfastForward) ...[
+              if (c.enabledButtons.rewindAndfastForward) ...[
                 const SizedBox(width: 10),
                 PlayerButton(
-                  onPressed: _.fastForward,
+                  onPressed: c.fastForward,
                   iconColor: Colors.white,
                   backgrounColor: Colors.transparent,
-                  size: responsive.ip(_.fullscreen.value ? 8 : 12),
+                  size: responsive.ip(c.fullscreen.value ? 8 : 12),
                   iconPath: 'assets/icons/fast-forward.png',
-                  customIcon: _.customIcons.fastForward,
+                  customIcon: c.customIcons.fastForward,
                 ),
               ]
             ],
