@@ -26,7 +26,7 @@ class VideoFitButton extends StatelessWidget {
         iconPath: iconPath,
         customIcon: customIcon,
         onPressed: () {
-          print("s");
+          debugPrint("s");
           _.toggleVideoFit();
         },
       );

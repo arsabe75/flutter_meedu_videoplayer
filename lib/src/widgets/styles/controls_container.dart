@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_meedu_videoplayer/meedu_player.dart';
 import 'package:flutter_meedu_videoplayer/src/helpers/utils.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/forward_and_rewind.dart';
-import 'package:flutter_meedu_videoplayer/src/widgets/rewindAndForwardLayout.dart';
+import 'package:flutter_meedu_videoplayer/src/widgets/rewind_and_forward_layout.dart';
 
 class ControlsContainer extends StatelessWidget {
   final Widget child;
@@ -25,7 +25,7 @@ class ControlsContainer extends StatelessWidget {
   double _onDragStartBrightness = 1;
   bool isVolume = false;
   //bool gettingNotification = false;
-  int _defaultSeekAmount = -10;
+  final int _defaultSeekAmount = -10;
   Timer? _doubleTapToSeekTimer;
   Timer? _tappedOnce;
   bool tappedTwice = false;
@@ -56,8 +56,9 @@ class ControlsContainer extends StatelessWidget {
       tappedTwice = true;
       _.controls = !_.showControls.value;
       _tappedOnce?.cancel();
-      _tappedOnce = Timer(Duration(milliseconds: 300), () {
-        print("_____________________hidden here 0____________________________");
+      _tappedOnce = Timer(const Duration(milliseconds: 300), () {
+        debugPrint(
+            "_____________________hidden here 0____________________________");
         tappedTwice = false;
         //_dragInitialDelta = Offset.zero;
       });
@@ -96,11 +97,11 @@ class ControlsContainer extends StatelessWidget {
       }
 
       _doubleTapToSeekTimer?.cancel();
-      _doubleTapToSeekTimer = Timer(Duration(milliseconds: 500), () {
+      _doubleTapToSeekTimer = Timer(const Duration(milliseconds: 500), () {
         playing = controller.playerStatus.playing;
         controller.videoSeekToNextSeconds(
             _defaultSeekAmount * controller.doubleTapCount.value, playing);
-        print("tapped is false here");
+        debugPrint("tapped is false here");
         tappedTwice = false;
         controller.rewindIcons.value = false;
         controller.forwardIcons.value = false;
@@ -141,7 +142,7 @@ class ControlsContainer extends StatelessWidget {
         volume <= 1 &&
         differenceOfExists((controller.volume.value * 100).round(),
             (volume * 100).round(), 2)) {
-      print("Volume" + volume.toString());
+      debugPrint("Volume $volume");
       //print("current ${(controller.volume.value*100).round()}");
       //print("new ${(volume*100).round()}");
       controller.setVolume(volume);
@@ -195,7 +196,7 @@ class ControlsContainer extends StatelessWidget {
         brightness <= 1 &&
         differenceOfExists((controller.brightness.value * 100).round(),
             (brightness * 100).round(), 2)) {
-      print("brightness " + brightness.toString());
+      debugPrint("brightness $brightness");
       //brightness
       controller.setBrightness(brightness);
     }
@@ -271,16 +272,16 @@ class ControlsContainer extends StatelessWidget {
       RxBuilder(
         //observables: [_.volume],
         (__) => AnimatedOpacity(
-          duration: Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 100),
           opacity: _.showVolumeStatus.value ? 1 : 0,
           child: Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Container(
+                child: SizedBox(
                   height: context.mediaQuerySize.height / 2,
                   width: 35,
                   child: Stack(
@@ -293,8 +294,8 @@ class ControlsContainer extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       Container(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
+                          padding: const EdgeInsets.all(5),
+                          child: const Icon(
                             Icons.music_note,
                             color: Colors.white,
                           )),
@@ -309,16 +310,16 @@ class ControlsContainer extends StatelessWidget {
       RxBuilder(
         //observables: [_.volume],
         (__) => AnimatedOpacity(
-          duration: Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 100),
           opacity: _.showBrightnessStatus.value ? 1 : 0,
           child: Align(
             alignment: Alignment.centerRight,
             child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Container(
+                child: SizedBox(
                   height: context.mediaQuerySize.height / 2,
                   width: 35,
                   child: Stack(
@@ -332,8 +333,8 @@ class ControlsContainer extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       Container(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
+                          padding: const EdgeInsets.all(5),
+                          child: const Icon(
                             Icons.wb_sunny,
                             color: Colors.white,
                           )),
@@ -351,7 +352,7 @@ class ControlsContainer extends StatelessWidget {
         (__) => Align(
           alignment: Alignment.center,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             opacity: _.showSwipeDuration.value ? 1 : 0,
             child: Visibility(
               visible: _.showSwipeDuration.value,
@@ -361,13 +362,9 @@ class ControlsContainer extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     _.swipeDuration.value > 0
-                        ? "+ " +
-                            printDuration(
-                                Duration(seconds: _.swipeDuration.value))
-                        : "- " +
-                            printDuration(
-                                Duration(seconds: _.swipeDuration.value)),
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                        ? "+ ${printDuration(Duration(seconds: _.swipeDuration.value))}"
+                        : "- ${printDuration(Duration(seconds: _.swipeDuration.value))}",
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),
@@ -381,7 +378,7 @@ class ControlsContainer extends StatelessWidget {
         (__) => Align(
           alignment: Alignment.center,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             opacity: _.videoFitChanged.value ? 1 : 0,
             child: Visibility(
               visible: _.videoFitChanged.value,
@@ -391,7 +388,7 @@ class ControlsContainer extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     _.videoFit.value.name,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),
@@ -407,7 +404,7 @@ class ControlsContainer extends StatelessWidget {
           return Center(
               child: Text(
             _.errorText!,
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ));
         } else {
           return Container();
@@ -497,7 +494,7 @@ class ControlsContainer extends StatelessWidget {
               _forwardDragStart(position, _);
               _dragInitialDelta = delta;
             } else {
-              print("##############out###############");
+              debugPrint("##############out###############");
               gettingNotification = true;
             }
           }
@@ -526,7 +523,7 @@ class ControlsContainer extends StatelessWidget {
 
           final Offset position = details.localPosition;
           if (_dragInitialDelta == Offset.zero) {
-            print(details.globalPosition.dy);
+            debugPrint(details.globalPosition.dy as String);
             if (details.globalPosition.dy >
                     MediaQuery.of(context).size.height * 0.1 &&
                 ((MediaQuery.of(context).size.height -
@@ -548,7 +545,7 @@ class ControlsContainer extends StatelessWidget {
                 //print("left");
               }
             } else {
-              print("out");
+              debugPrint("out");
               gettingNotification = true;
             }
             //}
@@ -589,7 +586,7 @@ class ControlsContainer extends StatelessWidget {
           color: _.showControls.value ? Colors.black38 : Colors.transparent,
           child: AbsorbPointer(
             absorbing: !_.showControls.value,
-            child: this.child,
+            child: child,
           ),
         ),
       ),

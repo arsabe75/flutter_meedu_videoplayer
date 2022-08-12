@@ -5,7 +5,7 @@ import 'package:flutter_meedu_videoplayer/src/helpers/responsive.dart';
 import 'package:flutter_meedu_videoplayer/src/helpers/utils.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/fullscreen_button.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/mute_sound_button.dart';
-import 'package:flutter_meedu_videoplayer/src/widgets/playBackSpeed.dart';
+import 'package:flutter_meedu_videoplayer/src/widgets/play_back_speed.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/player_slider.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/video_fit_button.dart';
 
@@ -41,11 +41,11 @@ class PrimaryBottomControls extends StatelessWidget {
             );
           }),
           // END VIDEO POSITION
-          SizedBox(width: 10),
-          Expanded(
+          const SizedBox(width: 10),
+          const Expanded(
             child: PlayerSlider(),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           // START VIDEO DURATION
           RxBuilder(
             //observables: [_.duration],
@@ -57,8 +57,11 @@ class PrimaryBottomControls extends StatelessWidget {
             ),
           ),
           // END VIDEO DURATION
-          SizedBox(width: 15),
-          if (_.bottomRight != null) ...[_.bottomRight!, SizedBox(width: 5)],
+          const SizedBox(width: 15),
+          if (_.bottomRight != null) ...[
+            _.bottomRight!,
+            const SizedBox(width: 5)
+          ],
 
           //if (_.enabledButtons.pip) PipButton(responsive: responsive),
 

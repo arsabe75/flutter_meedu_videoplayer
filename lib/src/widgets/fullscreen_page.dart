@@ -9,11 +9,11 @@ class MeeduPlayerFullscreenPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _MeeduPlayerFullscreenPageState createState() =>
-      _MeeduPlayerFullscreenPageState();
+  MeeduPlayerFullscreenPageState createState() =>
+      MeeduPlayerFullscreenPageState();
 }
 
-class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
+class MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -22,7 +22,7 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
       body: RxBuilder(
         //observables: [controller.videoFit],
         (__) {
-          return Container(
+          return SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: FittedBox(
@@ -31,7 +31,7 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
                 width: _size.width,
                 height: _size.height,
                 child: MeeduVideoPlayer(
-                  controller: this.widget.controller,
+                  controller: widget.controller,
                 ),
               ),
             ),
@@ -43,8 +43,8 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
 
   @override
   Future<void> dispose() async {
-    print("disposed");
-    this.widget.controller.videoPlayerClosed();
+    debugPrint("disposed");
+    widget.controller.videoPlayerClosed();
     super.dispose();
   }
 }

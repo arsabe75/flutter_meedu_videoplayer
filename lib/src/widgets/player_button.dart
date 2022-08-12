@@ -25,22 +25,22 @@ class PlayerButton extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       minSize: 20,
+      onPressed: onPressed,
       child: customIcon ??
           Container(
-            width: this.size,
-            height: this.size,
-            padding: EdgeInsets.all(this.size * 0.25),
+            width: size,
+            height: size,
+            padding: EdgeInsets.all(size * 0.25),
+            decoration: BoxDecoration(
+              color: backgrounColor,
+              shape: circle ? BoxShape.circle : BoxShape.rectangle,
+            ),
             child: Image.asset(
-              this.iconPath,
-              color: this.iconColor,
+              iconPath,
+              color: iconColor,
               package: 'flutter_meedu_videoplayer',
             ),
-            decoration: BoxDecoration(
-              color: this.backgrounColor,
-              shape: this.circle ? BoxShape.circle : BoxShape.rectangle,
-            ),
           ),
-      onPressed: this.onPressed,
     );
   }
 }

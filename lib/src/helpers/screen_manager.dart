@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto_orientation/auto_orientation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_meedu_videoplayer/meedu_player.dart';
@@ -27,7 +25,7 @@ class ScreenManager {
   Future<void> setDefaultOverlaysAndOrientations() async {
     //await SystemChrome.setPreferredOrientations(this.orientations);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: this.overlays);
+        overlays: overlays);
     AutoOrientation.portraitAutoMode();
   }
 
@@ -53,7 +51,7 @@ class ScreenManager {
     if (visible) {
       await SystemChrome.setEnabledSystemUIMode(
           edgeToedge ? SystemUiMode.edgeToEdge : SystemUiMode.immersive,
-          overlays: this.overlays);
+          overlays: overlays);
     } else {
       //print("Closed2");
       await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -66,7 +64,7 @@ class ScreenManager {
   Future<void> setFullScreenOverlaysAndOrientations({
     hideOverLays = true,
   }) async {
-    this.forceLandScapeInFullscreen
+    forceLandScapeInFullscreen
         ? AutoOrientation.landscapeAutoMode(forceSensor: true)
         : AutoOrientation.fullAutoMode();
 
