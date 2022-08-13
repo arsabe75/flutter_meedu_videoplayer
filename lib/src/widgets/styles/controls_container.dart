@@ -8,36 +8,48 @@ import 'package:flutter_meedu_videoplayer/src/helpers/utils.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/forward_and_rewind.dart';
 import 'package:flutter_meedu_videoplayer/src/widgets/rewind_and_forward_layout.dart';
 
-class ControlsContainer extends StatelessWidget {
+class ControlsContainer extends StatefulWidget {
   final Widget child;
-  bool playing = false;
-  bool gettingNotification = false;
-  late Offset horizontalDragStartOffset;
-  Offset _dragInitialDelta = Offset.zero;
-  Offset _verticalDragStartOffset = Offset.zero;
-  //Offset _mouseMoveInitial = Offset.zero;
-  //Duration _initialForwardPosition = Duration.zero;
-  //Axis _dragDirection = Axis.vertical;
 
+  const ControlsContainer({Key? key, required this.child}) : super(key: key);
+
+  @override
+  State<ControlsContainer> createState() => _ControlsContainerState();
+}
+
+class _ControlsContainerState extends State<ControlsContainer> {
+  bool playing = false;
+
+  bool gettingNotification = false;
+
+  late Offset horizontalDragStartOffset;
+
+  Offset _dragInitialDelta = Offset.zero;
+
+  Offset _verticalDragStartOffset = Offset.zero;
+
+  //Offset _mouseMoveInitial = Offset.zero;
   Offset _horizontalDragStartOffset = Offset.zero;
+
   final ValueNotifier<double> _currentVolume = ValueNotifier<double>(1.0);
+
   double _onDragStartVolume = 1;
+
   double _onDragStartBrightness = 1;
+
   bool isVolume = false;
+
   //bool gettingNotification = false;
   final int _defaultSeekAmount = -10;
+
   Timer? _doubleTapToSeekTimer;
+
   Timer? _tappedOnce;
+
   bool tappedTwice = false;
 
   final ValueNotifier<double> _currentBrightness = ValueNotifier<double>(1.0);
-  //final double _minScale = 1.0;
-  //double _initialScale = 1.0, _maxScale = 1.0;
 
-  //Duration swipeDuration=Duration(seconds: 0);
-  ControlsContainer({Key? key, required this.child}) : super(key: key);
-  //------------------------------------//
-  //FORWARD AND REWIND (DRAG HORIZONTAL)//
   //------------------------------------//
   void _forwardDragStart(
       Offset globalPosition, MeeduPlayerController controller) async {
@@ -67,6 +79,7 @@ class ControlsContainer extends StatelessWidget {
 
   void _rewind(MeeduPlayerController controller) =>
       _showRewindAndForward(0, controller);
+
   void _forward(MeeduPlayerController controller) =>
       _showRewindAndForward(1, controller);
 
@@ -132,8 +145,6 @@ class ControlsContainer extends StatelessWidget {
   }
 
   //----------------------------//
-  //VIDEO VOLUME (VERTICAL DRAG)//
-
   void _volumeDragUpdate(
       Offset globalPosition, MeeduPlayerController controller) {
     double diff = _verticalDragStartOffset.dy - globalPosition.dy;
@@ -586,7 +597,7 @@ class ControlsContainer extends StatelessWidget {
           color: _.showControls.value ? Colors.black38 : Colors.transparent,
           child: AbsorbPointer(
             absorbing: !_.showControls.value,
-            child: child,
+            child: widget.child,
           ),
         ),
       ),
