@@ -534,7 +534,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
 
           final Offset position = details.localPosition;
           if (_dragInitialDelta == Offset.zero) {
-            debugPrint(details.globalPosition.dy as String);
+            debugPrint(details.globalPosition.dy.toString());
             if (details.globalPosition.dy >
                     MediaQuery.of(context).size.height * 0.1 &&
                 ((MediaQuery.of(context).size.height -

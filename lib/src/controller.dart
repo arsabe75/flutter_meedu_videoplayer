@@ -801,7 +801,7 @@ class MeeduPlayerController {
         _videoPlayerController!.addListener(_listener);
       }
     } catch (e) {
-      debugPrint(e as String);
+      debugPrint(e.toString());
       //debugPrint(s as String);
       _errorText ??= _videoPlayerController!.value.errorDescription;
       dataStatus.status.value = DataStatus.error;
@@ -984,7 +984,7 @@ class MeeduPlayerController {
       try {
         _currentBrightness.value = await ScreenBrightness().current;
       } catch (e) {
-        debugPrint(e as String);
+        debugPrint(e.toString());
         throw 'Failed to get current brightness';
         //return 0;
       }
@@ -1038,7 +1038,7 @@ class MeeduPlayerController {
         ScreenBrightness().setScreenBrightness(brightnes);
         setUserPreferenceForBrightness();
       } catch (e) {
-        debugPrint(e as String);
+        debugPrint(e.toString());
         throw 'Failed to set brightness';
       }
     }
@@ -1065,7 +1065,7 @@ class MeeduPlayerController {
           _timerForVolume = null;
         });
       } catch (e) {
-        debugPrint(e as String);
+        debugPrint(e.toString());
         throw 'Failed to get current volume';
         //return 0;
       }
@@ -1075,7 +1075,7 @@ class MeeduPlayerController {
         volume.value = volumeNew;
         VolumeController().setVolume(volumeNew, showSystemUI: false);
       } catch (_) {
-        debugPrint(_ as String);
+        debugPrint(_.toString());
       }
     }
     //await _videoPlayerController?.setVolume(volume);
@@ -1086,7 +1086,7 @@ class MeeduPlayerController {
       try {
         await ScreenBrightness().resetScreenBrightness();
       } catch (e) {
-        debugPrint(e as String);
+        debugPrint(e.toString());
         throw 'Failed to reset brightness';
       }
     }
@@ -1273,7 +1273,7 @@ class MeeduPlayerController {
     } else {
       _videoFit.value = fits[0];
     }
-    debugPrint(_videoFit.value as String);
+    debugPrint(_videoFit.value.toString());
     videoFitChangedTimer = Timer(const Duration(seconds: 1), () {
       debugPrint("hidden videoFit Changed");
       videoFitChangedTimer = null;
